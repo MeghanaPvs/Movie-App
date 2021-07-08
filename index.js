@@ -79,13 +79,36 @@
 // app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 
-const Joi = require('joi');
+//const Joi = require('joi');
 const genres = require('./routes/genres');
+const customers = require('./routes/customers');
 const express = require('express');
+
+const mongoose = require('mongoose');
+
 const app = express();
+
+//Connecting to MongoDb
+// mongoose.connect('mongodb://localhost/vidly')
+//         .then(()=> console.log('Connection Established Successfully'))
+//         .catch(err=>console.error('Could not connect to MongoDb'));
+
+
+// Db: genres ;; pswd: genres123 ;; Database name: MovieGenres ;; Collection name: Genres
+//mongodb+srv://genres:genres123@cluster0.lghhp.mongodb.net/MovieGenres?retryWrites=true&w=majority
+
+
+const uri = "mongodb+srv://genres:genres123@cluster0.lghhp.mongodb.net/MovieGenres?retryWrites=true&w=majority"
+
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+const connection = mongoose.connection;
+connection.once('open', () => {
+    console.log("MongoDB database connection established successfully");
+});
 
 app.use(express.json());
 app.use('/api/genres', genres);
+app.use('/api/customers',customers);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
