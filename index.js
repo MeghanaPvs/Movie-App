@@ -80,12 +80,10 @@
 
 
 //const Joi = require('joi');
+const mongoose = require('mongoose');
 const genres = require('./routes/genres');
 const customers = require('./routes/customers');
 const express = require('express');
-
-const mongoose = require('mongoose');
-
 const app = express();
 
 //Connecting to MongoDb
